@@ -12,7 +12,6 @@ TagManager:
   - Fire
   - Boiling
   - Frying
-  - Plating
   - Chopped
   - Board
   - Die
@@ -21,6 +20,10 @@ TagManager:
   - PlayerFoot
   - Platform
   - Wall
+  - Trash
+  - Plate
+  - RawPlate
+  - Cooked
   layers:
   - Default
   - TransparentFX

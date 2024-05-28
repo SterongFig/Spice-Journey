@@ -10,31 +10,25 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     float hAxis;
-    float speed = 9;
-    float jumpPower = 11;
+    float speed = 13;
+    float jumpPower = 40;
+    //float jumpPower = 12;
 
     //check the position of event
     public bool onGround = false;
-    [SerializeField]
     bool onPlatform = false;
     bool isSomething = false;
     bool isChop = false;
-    ChopBoard chopScript;
+    public ChopBoard chopScript;
     bool ignoreInput = false;
     bool ignorePlatform = false;
-    [SerializeField]
     bool isPlate = false;
-    [SerializeField]
-    bool isServing = false;
 
     //grab and put variables - ingridients
-    [SerializeField]
     GameObject tmpSomethingGrab = null;
-    int? tmpSomethingGrab2 = null;
     // Raw grab
     GameObject tmpRawGrab = null; //This is Raw Grab, for clone the object
-    int? tmpRawGrab2 = null; //This For the Sprite
-    [SerializeField]
+    // obj in hand checker
     GameObject objectInHand = null;
 
     //player object parameter
@@ -42,25 +36,25 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     // Audio list
     [SerializeField]
-    // 0 : player_chop
+    // 0 : player_chop ; 1 : jump
     List<AudioClip> audioClipList;
     AudioSource source;
     AudioClip clip;
 
     //PlayerMemorizeRaw-Ingridients Combination
-    [SerializeField]
-    // 0 : raw_lontong ; 1 : raw_sapi
-    List<Sprite> rawSprite;
-    [SerializeField]
-    // 0 : lontong ; 1 : sapi
-    List<Sprite> ingSprites;
-    [SerializeField]
-    // 0 : lontong_potong ; 1 : sapi_potong
-    List<Sprite> chopSprites;
+    //[SerializeField]
+    //// 0 : raw_lontong ; 1 : raw_sapi
+    //List<Sprite> rawSprite;
+    //[SerializeField]
+    //// 0 : lontong ; 1 : sapi
+    //List<Sprite> ingSprites;
+    //[SerializeField]
+    //// 0 : lontong_potong ; 1 : sapi_potong
+    //List<Sprite> chopSprites;
 
-    //Player Memorize all the Ingridients Combination
-    List<String> boil_ingridients = new() { "beras", "sapi_potong", "ayam_potong" };
-    List<String> fry_ingridients = new() { "nasi", "mie", "cabai_potong", "bumbu_aceh" };
+    ////Player Memorize all the Ingridients Combination
+    //List<String> boil_ingridients = new() { "beras", "sapi_potong", "ayam_potong" };
+    //List<String> fry_ingridients = new() { "nasi", "mie", "cabai_potong", "bumbu_aceh" };
 
     // Player Settings
     [SerializeField]
@@ -97,6 +91,24 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //check if the hand is grabbing plate? - conditions for plating purposes
+        if(objectInHand != null)
+        {
+            if (objectInHand.name.Contains("plate"))
+            {
+                isPlate = true;
+            }
+            else
+            {
+                isPlate = false;
+            }
+        }
+        else
+        {
+            isPlate = false;
+        }
+        
+        //start Input
         if (!ignoreInput)
         {
             // moving left right
@@ -118,7 +130,10 @@ public class PlayerController : MonoBehaviour
             //jump
             if (Input.GetKeyDown(KeyCode.UpArrow) && onGround)
             {
-                rb.velocity = new Vector2(0, 1) * jumpPower;                
+                //ignore anything on feet
+                //GetComponent<BoxCollider2D>().enabled = false;
+                rb.velocity = new Vector2(0, 1) * jumpPower;
+                //GetComponent<BoxCollider2D>().enabled = true;
             }
             animator.SetFloat("isJump", rb.velocity.y);
 
@@ -131,6 +146,27 @@ public class PlayerController : MonoBehaviour
                 ignoreInput = true;
                 ignorePlatform = true;
             }
+
+            //grab raw_plate
+            if (Input.GetKeyDown(KeyCode.Space) && isPlate && objectInHand == null)
+            {
+                if (isSomething)
+                {
+                    //garb plate
+                    GrabObject(tmpSomethingGrab, true);
+                    animator.SetBool("isCarry", true);
+                    return;
+                }
+                //else
+                //{
+                //    //grab raw_plate
+                //    GrabObject(tmpRawGrab2.CreatePlate(), false);
+                //    animator.SetBool("isCarry", true);
+                //    return;
+                //}
+            }
+            //put plate
+
 
             //function to grab and put object
             if (Input.GetKeyDown(KeyCode.Space) && objectInHand == null)
@@ -152,8 +188,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && objectInHand != null)
             {
                 PlaceObjectBack(objectInHand);
+                isPlate = false; //anything there is put include plate is now isPlate = false
                 animator.SetBool("isCarry", false);
-                return;
+                //return;
             }
 
             // player do chopping - C key
@@ -180,42 +217,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        //platform allow jump
-        if (col.tag == "Floor" || col.tag == "Platform")
-        {
-            onGround = true;
-            animator.SetFloat("isJump", 0);
-        }
         //on Smart Platform to Allow down
         if (col.tag == "Platform")
         {
             onPlatform = true;
         }
-        if (col.tag == "Ingridients" || col.tag == "Food")
+        if (col.tag == "Wall")
         {
-            isSomething = true;
-            //detect sprite and find index combination
-            var detect = col.gameObject.GetComponent<SpriteRenderer>().sprite;
-            int indexes = ingSprites.IndexOf(detect);
-            tmpSomethingGrab = col.gameObject;
-            tmpSomethingGrab2 = indexes;
+            GetComponent<BoxCollider2D>().enabled = true;
         }
-        if (col.tag == "Raw")
-        {
-            var detect = col.gameObject.GetComponent<SpriteRenderer>().sprite;
-            int indexes = rawSprite.IndexOf(detect);
-            tmpRawGrab = col.gameObject;
-            tmpRawGrab2 = indexes;
-        }
-        if (col.tag == "Board")
-        {
-            isChop = true;
-            chopScript = col.GetComponent<ChopBoard>();
-        }
-        if (col.tag == "Chopped")
+        if (col.tag == "Plate")
         {
             isSomething = true;
             tmpSomethingGrab = col.gameObject;
+            isPlate = true;
         }
         if (col.tag == "Die" || col.tag == "Enemy")
         {
@@ -227,6 +242,30 @@ public class PlayerController : MonoBehaviour
             }
             animator.SetBool("isDie", true);
             StartCoroutine(PlayerDie());
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.tag == "Raw")
+        {
+            tmpRawGrab = col.gameObject;
+        }
+        if (col.tag == "Ingridients" || col.tag == "Food" || col.tag == "Chopped" || col.tag == "Cooked")
+        {
+            isSomething = true;
+            tmpSomethingGrab = col.gameObject;
+        }
+        if (col.tag == "Board")
+        {
+            isChop = true;
+            chopScript = col.GetComponent<ChopBoard>();
+        }
+        //platform allow jump
+        if (col.tag == "Floor" || col.tag == "Platform")
+        {
+            onGround = true;
+            animator.SetFloat("isJump", 0);
         }
     }
 
@@ -244,12 +283,21 @@ public class PlayerController : MonoBehaviour
         {
             isSomething = false;
             tmpSomethingGrab = null;
-            tmpSomethingGrab2 = null;
         }
         if (col.tag == "Raw")
         {
             tmpRawGrab = null;
-            tmpRawGrab2 = null;
+        }
+        //if (col.tag == "RawPlate")
+        //{
+        //    tmpRawGrab2 = null;
+        //    isPlate = true;
+        //}
+        if (col.tag == "Plate")
+        {
+            isSomething = false;
+            tmpSomethingGrab = null;
+            isPlate = true;
         }
         if (col.tag == "Board")
         {
@@ -264,7 +312,7 @@ public class PlayerController : MonoBehaviour
         {
             // Set the object as a child of the player (to move with the player)
             objToGrab.transform.parent = transform;
-            objToGrab.transform.localPosition = new Vector2(0, 6); // Place it in the player's hand
+            objToGrab.transform.localPosition = new Vector2(0, 7); // Place it in the player's hand
             objToGrab.GetComponent<Rigidbody2D>().isKinematic = true; // Disable physics on the object
             objectInHand = objToGrab;
         }
@@ -274,7 +322,7 @@ public class PlayerController : MonoBehaviour
             GameObject clonedObject = Instantiate(objToGrab, transform.position, Quaternion.identity);
             clonedObject.tag = "Ingridients";
             clonedObject.transform.parent = transform;
-            clonedObject.transform.localPosition = new Vector2(0, 6);
+            clonedObject.transform.localPosition = new Vector2(0, 7);
             clonedObject.GetComponent<Rigidbody2D>().isKinematic = true;
             //add trigger collider
             CircleCollider2D circleCollider = clonedObject.AddComponent<CircleCollider2D>();
@@ -284,16 +332,20 @@ public class PlayerController : MonoBehaviour
             //change the name
             clonedObject.name = clonedObject.name.Replace("raw_", "").Replace("(Clone)", "");
             //change sprite
-            clonedObject.GetComponent<SpriteRenderer>().sprite = ingSprites[tmpRawGrab2.Value];
+            clonedObject.GetComponent<SpriteRenderer>().sprite = clonedObject.GetComponent<IngridientRead>().scriptIngridient.ingSprite;
             //insert the IngridientsTrigger Script - boiling purposes
-            if (boil_ingridients.Contains(clonedObject.name))
+            if (clonedObject.GetComponent<IngridientRead>().scriptIngridient.isBoiled)
             {
                 clonedObject.AddComponent<IngridientsTrigger>();
             }
             //insert the IngridientsTrigger2 Script - frying purposes
-            else if (fry_ingridients.Contains(clonedObject.name))
+            if (clonedObject.GetComponent<IngridientRead>().scriptIngridient.isFried)
             {
                 clonedObject.AddComponent<IngridientsTrigger2>();
+            }
+            if (clonedObject.GetComponent<IngridientRead>().scriptIngridient.cooktarget == Cooktarget.none)
+            {
+                clonedObject.AddComponent<IngridientsTrigger3>();
             }
             //else don't add trigger to cook - example lontong is not cookable
             // Set the copy as the object in hand
@@ -317,7 +369,6 @@ public class PlayerController : MonoBehaviour
         // use function grab object so player is make the change
         GrabChoppedNull(tmpSomethingGrab, true);
         tmpSomethingGrab = null;
-        tmpSomethingGrab2 = null;
     }
 
     private void GrabChoppedNull(GameObject objToGrab, bool ingridients)
@@ -327,16 +378,16 @@ public class PlayerController : MonoBehaviour
         {
             objToGrab.tag = "Chopped";
             objToGrab.name += "_potong";
-            objToGrab.GetComponent<SpriteRenderer>().sprite = chopSprites[tmpSomethingGrab2.Value];
+            objToGrab.GetComponent<SpriteRenderer>().sprite = objToGrab.GetComponent<IngridientRead>().scriptIngridient.chopSprite;
             //insert the IngridientsTrigger Script - boiling purposes
-            if (boil_ingridients.Contains(objToGrab.name))
+            if (objToGrab.GetComponent<IngridientRead>().scriptIngridient.isBoiled)
             {
-                objToGrab.AddComponent<IngridientsTrigger>();
+                objToGrab.GetOrAddComponent<IngridientsTrigger>();
             }
             //insert the IngridientsTrigger2 Script - frying purposes
-            else if (fry_ingridients.Contains(objToGrab.name))
+            else if (objToGrab.GetComponent<IngridientRead>().scriptIngridient.isFried)
             {
-                objToGrab.AddComponent<IngridientsTrigger2>();
+                objToGrab.GetOrAddComponent<IngridientsTrigger2>();
             }
             //else don't add trigger to cook - example lontong is not cookable
             objToGrab.transform.parent = transform;

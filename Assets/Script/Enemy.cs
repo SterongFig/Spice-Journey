@@ -37,7 +37,11 @@ public class Enemy : MonoBehaviour
             StopAllCoroutines();
             onGround = true;
         }
-        else // it bump to wall or other
+        if(col.tag == "Player" || col.tag == "Trash" || col.tag == "Table")
+        {
+            return;
+        }
+        if(name != "Enemy") // it bump to wall or other, just for clone
         {
             hAxis = (hAxis == -1) ? 1 : -1;
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
@@ -49,7 +53,16 @@ public class Enemy : MonoBehaviour
         if (col.tag == "Floor")
         {
             StopAllCoroutines();
-            StartCoroutine(CountdownDie());
+            try
+            {
+                StartCoroutine(CountdownDie());
+            }
+            catch
+            {
+                // if there any error just Ignore it
+                Debug.Log("the enemy already died - but coroutine started");
+                return;
+            }
             onGround = false;
         }
     }

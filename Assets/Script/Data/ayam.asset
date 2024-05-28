@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57702aec4bdda3f44a3063d4165e5fce, type: 3}
+  m_Name: ayam
+  m_EditorClassIdentifier: 
+  name: ayam
+  rawSprite: {fileID: 0}
+  ingSprite: {fileID: 0}
+  chopSprite: {fileID: 0}
+  cookSprite: {fileID: 0}
+  isChop: 1
+  isCook: 1
+  isBoiled: 1
+  isFried: 0
+  isSmoked: 1
+  platetarget: 2
+  cooktarget: 2

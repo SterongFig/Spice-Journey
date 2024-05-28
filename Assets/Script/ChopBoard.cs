@@ -8,7 +8,7 @@ public class ChopBoard : MonoBehaviour
     PlayerController playerController;
     [SerializeField]
     GameObject tmpSomethingGrab;
-    int? tmpSomethingGrab2 = null;
+    //int? tmpSomethingGrab2 = null;
     [SerializeField]
     List<Sprite> ingSprites;
     [SerializeField]
@@ -27,13 +27,6 @@ public class ChopBoard : MonoBehaviour
     [SerializeField]
     bool bahanMasuk = false;
 
-    //forbidden to insert
-    List<string> forbid = new() { "bumbu", "lontong_potong", "sapi_potong", "ayam_potong", "mie", "nasi", "beras" };
-
-    //Memorize all the Ingridients Combination
-    List<String> boil_ingridients = new() { "beras", "sapi_potong", "ayam_potong" };
-    List<String> fry_ingridients = new() { "nasi", "mie", "cabai_potong", "bumbu_aceh" };
-
     float fillbar = 0;
     const float waktuPotong = 3.5f;
 
@@ -48,7 +41,7 @@ public class ChopBoard : MonoBehaviour
         //update fillbar
         if (fillbar > 0)
         {
-            fill.GetComponent<RectTransform>().localScale = new Vector3((fillbar / waktuPotong) * 2.19f, 0.13f, 1);
+            fill.GetComponent<RectTransform>().localScale = new Vector3((fillbar / waktuPotong) * 11.2f, 0.664f, 1);
         }
     }
 
@@ -57,15 +50,10 @@ public class ChopBoard : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Ingridients" && !forbid.Contains(col.name))
+        if (col.tag == "Ingridients" && col.GetComponent<IngridientRead>().scriptIngridient.isChop && !col.name.Contains("potong"))
         {
             bahanMasuk = true;
             tmpSomethingGrab = col.gameObject;
-            //detect sprite and find index combination
-            var detect = col.gameObject.GetComponent<SpriteRenderer>().sprite;
-            int indexes = ingSprites.IndexOf(detect);
-            tmpSomethingGrab = col.gameObject;
-            tmpSomethingGrab2 = indexes;
         }
     }
 
@@ -75,7 +63,6 @@ public class ChopBoard : MonoBehaviour
         {
             bahanMasuk = false;
             tmpSomethingGrab = null;
-            tmpSomethingGrab2 = null;
         }
     }
 

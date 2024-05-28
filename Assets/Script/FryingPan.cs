@@ -14,24 +14,28 @@ public class FryingPan : MonoBehaviour
     [SerializeField]
     GameObject pointReject;
 
+    [SerializeField] ScoreManager scoreManager;
+
     [SerializeField]
     List<GameObject> bahanMasuk;
 
     float fillbar = 0;
-    const float waktuMasak = 10;
+    const float waktuMasak = 15;
 
-    //forbidden to insert
-    List<string> forbid = new() { "lontong", "lontong_potong", "sapi", "sapi_potong", "ayam", "ayam_potong", "bumbu_lontong", "bumbu_bakso", "beras"};
-    // yang boleh:
-    // nasi, mie, bumbu_spesial, cabai, telur(option)
+    AudioSource source;
+    AudioClip clip;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
+
     void Update()
     {
         //update fillbar
         if (fillbar > 0)
         {
-            fill.GetComponent<RectTransform>().localScale = new Vector3((fillbar / waktuMasak) * 3.45f, fill.GetComponent<RectTransform>().localScale.y, fill.GetComponent<RectTransform>().localScale.z);
+            fill.GetComponent<RectTransform>().localScale = new Vector3((fillbar / waktuMasak) * 12, fill.GetComponent<RectTransform>().localScale.y, fill.GetComponent<RectTransform>().localScale.z);
         }
     }
 
@@ -40,16 +44,18 @@ public class FryingPan : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Ingridients" || col.tag == "Chopped")
+        if (col.tag == "Player")
         {
-            // forbid any doesn't belong here
-            if (forbid.Contains(col.name))
-            {
-                // flung/tolak(taruh di-samping) the ingridients
-                var tmp = pointReject.transform.position;
-                col.gameObject.transform.position = new Vector3(tmp.x, tmp.y, tmp.z);
-                return;
-            }
+            return;
+        }
+        void Reject()
+        {
+            // flung/tolak(taruh di-samping) the ingridients
+            var tmp = pointReject.transform.position;
+            col.gameObject.transform.position = new Vector3(tmp.x, tmp.y, tmp.z);
+        }
+        void Accept()
+        {
             //save the instance to List
             bahanMasuk.Add(instanceObj(col.gameObject));
             if (coObject == null)
@@ -62,6 +68,25 @@ public class FryingPan : MonoBehaviour
                 fillbar = fillbar / 2;
             }
         }
+        // forbid any doesn't belong here
+        if (!col.GetComponent<IngridientRead>().scriptIngridient.isBoiled)
+        {
+            Reject();
+            return;
+        }
+        //if the object belong to cook here
+        if (col.tag == "Ingridients" && col.GetComponent<IngridientRead>().scriptIngridient.cooktarget == Cooktarget.ingridient)
+        {
+            Accept();
+            return;
+        }
+        if (col.tag == "Chopped" && col.GetComponent<IngridientRead>().scriptIngridient.cooktarget == Cooktarget.chop)
+        {
+            Accept();
+            return;
+        }
+        Reject();
+        return;
     }
 
     private GameObject instanceObj(GameObject objToCreate)
@@ -108,8 +133,61 @@ public class FryingPan : MonoBehaviour
         coObject = null;
 
         // logic keluaran bahan makanan yang jadi
+        HasilKeluaran();
+    }
+
+    private void HasilKeluaran()
+    {
+        if (bahanMasuk.Count < 2)
+        {
+            GameObject clonedObject = Instantiate(bahanMasuk[0], transform.position, Quaternion.identity);
+            clonedObject.tag = "Cooked";
+            var sprite = clonedObject.GetComponent<SpriteRenderer>();
+            sprite.sprite = clonedObject.GetComponent<IngridientRead>().scriptIngridient.cookSprite;
+            sprite.enabled = true;
+            clonedObject.GetComponent<BoxCollider2D>().enabled = true;
+            clonedObject.GetComponent<CircleCollider2D>().enabled = true;
+            clonedObject.transform.parent = null;
+            clonedObject.name = clonedObject.name.Replace("(Clone)", "_masak");
+            clonedObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            clonedObject.GetComponent<Transform>().localScale = new Vector3(0.11f, 0.11f, 0.11f);
+            clonedObject.transform.position = pointReject.transform.position;
+        }
+        else
+        {
+            List<Sprite> tmpSprite = new() { };
+            List<string> tmpName = new() { };
+            foreach (var item in bahanMasuk)
+            {
+                tmpSprite.Add(item.GetComponent<IngridientRead>().scriptIngridient.cookSprite);
+                tmpName.Add(item.name);
+            }
+            Sprite sprite = scoreManager.CheckMenuCombination(tmpSprite);
+            GameObject newGameObject = new GameObject("kombinasi_masak");
+            newGameObject.tag = "Food";
+            var spriteCloned = newGameObject.AddComponent<SpriteRenderer>();
+            spriteCloned.sprite = sprite;
+            spriteCloned.transform.localScale = Vector3.one * 0.21f;
+            var boxCloned = newGameObject.AddComponent<BoxCollider2D>();
+            boxCloned.size = new Vector2(7.5f, 1.2f);
+            var circleCloned = newGameObject.AddComponent<CircleCollider2D>();
+            circleCloned.radius = 0.75f;
+            circleCloned.isTrigger = true;
+            circleCloned.offset = new Vector2(0, -0.6f);
+            var rigidCloned = newGameObject.AddComponent<Rigidbody2D>();
+            rigidCloned.bodyType = RigidbodyType2D.Dynamic;
+            rigidCloned.freezeRotation = true;
+            var IngTrigF = newGameObject.AddComponent<IngridientsTiggerF>();
+            IngTrigF.objInPlate = tmpSprite;
+            IngTrigF.nameInPlate = tmpName;
+            newGameObject.transform.position = pointReject.transform.position;
+        }
 
         // Kosongkan daftar bahan makanan (opsi ini bisa diganti dengan mengeluarkan bahan)
+        foreach (var item in bahanMasuk)
+        {
+            Destroy(item);
+        }
         bahanMasuk.Clear();
     }
 }
