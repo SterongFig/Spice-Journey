@@ -32,12 +32,12 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Floor")
+        if (col.tag == "Floor" || col.tag == "Platform")
         {
             StopAllCoroutines();
             onGround = true;
         }
-        if(col.tag == "Player" || col.tag == "Trash" || col.tag == "Table")
+        if(col.tag == "Player" || col.tag == "Trash" || col.tag == "Untagged")
         {
             return;
         }

@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+    [SerializeField] ScriptingLevel dataLevel;
     [SerializeField] //Menu that are serving UP
     List<ScriptingMenu> m_Menu; //ini hanya menu yang akan di serve
 
@@ -18,35 +18,50 @@ public class ScoreManager : MonoBehaviour
 
     float score = 0;
     float multi = 1;
-    float highscore = 0;
 
     //audio
     [SerializeField]
-    // 0: ding, 1: waw, 2: time
+    // 0: ding, 1: buzzer, 2: time, 3: buzzer-cut, 4: correct
     List<AudioClip> audioClipList;
-    AudioSource source;
-    AudioClip clip;
+    [SerializeField] AudioSource source;
+
+    bool first = true;
 
     void Start()
     {
         score = 0;
         multi = 1;
         delivery = ServingOrder.GetComponent<DeleveryManagerUI>();
-        delivery.AddRecepie(GetRandomMenu());
-        delivery.AddRecepie(GetRandomMenu());
-        StopAllCoroutines();
-        StartCoroutine(menuClocking());
+        m_Menu = dataLevel.menuServe;
+        // restart playerpref
+        PlayerPrefs.SetInt("tmpDataLevel", 0);
+        PlayerPrefs.SetFloat("tmpPlusPoint", 0);
+        PlayerPrefs.SetFloat("tmpMinusPoint", 0);
+        PlayerPrefs.SetInt("tmpBoolHighScore", 0);
+        PlayerPrefs.SetFloat("tmpDelivered", 0);
     }
 
     void Update()
     {
-        highscore = PlayerPrefs.GetInt("highscore", 0);
+        if (first)
+        {
+            FirstToDo();
+        }
         scoreText.text = score.ToString();
         multiText.text = "combo " + multi.ToString();
         if (delivery.m_Menu.Count == 0)
         {
             delivery.AddRecepie(GetRandomMenu());
         }
+    }
+
+    private void FirstToDo()
+    {
+        delivery.AddRecepie(GetRandomMenu());
+        delivery.AddRecepie(GetRandomMenu());
+        StopAllCoroutines();
+        StartCoroutine(menuClocking());
+        first = false;
     }
 
     public void CheckServe(List<Sprite> param1, List<string> param2)
@@ -77,19 +92,25 @@ public class ScoreManager : MonoBehaviour
     {
         if (!addMulti) { ResetMulti(); } //reset first if unordered
         score += (scoreAdd * multi);
+        PlayerPrefs.SetFloat("tmpPlusPoint", PlayerPrefs.GetFloat("tmpPlusPoint") + (scoreAdd * multi));
+        PlayerPrefs.SetFloat("tmpDelivered", PlayerPrefs.GetFloat("tmpDelivered") + 1);
         if (addMulti)
         {
             AddMulti();
         }
-
-        if (highscore < score)
-            PlayerPrefs.GetInt("highscore", 0);
+        source.clip = audioClipList[0];
+        source.loop = false;
+        source.Play();
     }
 
     public void MinusPoint(float scoreMinus)
     {
         score -= scoreMinus;
+        PlayerPrefs.SetFloat("tmpMinusPoint", PlayerPrefs.GetFloat("tmpMinusPoint") - scoreMinus);
         ResetMulti();
+        source.clip = audioClipList[1];
+        source.loop = false;
+        source.Play();
     }
 
     public void AddMulti()
@@ -104,6 +125,9 @@ public class ScoreManager : MonoBehaviour
     public void ResetMulti()
     {
         multi = 1;
+        source.clip = audioClipList[3];
+        source.loop = false;
+        source.Play();
     }
 
     private bool AreSpriteListsEqual(List<Sprite> list1, List<Sprite> list2)
@@ -187,5 +211,10 @@ public class ScoreManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public float currentScore()
+    {
+        return score;
     }
 }

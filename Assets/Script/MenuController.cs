@@ -8,7 +8,7 @@ public class MenuController : MonoBehaviour
     public GameObject bar;
     public GameObject fill;
     public ScoreManager scoreManager;
-    const float waktutunggu = 30; //waktu tunggu disesuaikan
+    public float waktutunggu = 30; //waktu tunggu disesuaikan
     float fillBar = 0;
 
     private void Start()

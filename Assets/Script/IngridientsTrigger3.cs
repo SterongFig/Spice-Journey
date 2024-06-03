@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class IngridientsTrigger3 : MonoBehaviour
 {
+    // for coal purposes
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == "Trash")
@@ -26,6 +27,14 @@ public class IngridientsTrigger3 : MonoBehaviour
                 Destroy(gameObject);
             }
             if (tag == "Cooked" && target == Platetarget.cooked)
+            {
+                Destroy(gameObject);
+            }
+        }
+        if (col.tag == "Charcoal")
+        {
+            if ((GetComponent<IngridientRead>().scriptIngridient.cooktarget == Cooktarget.ingridient && tag == "Ingridients") ||
+                (GetComponent<IngridientRead>().scriptIngridient.cooktarget == Cooktarget.chop && tag == "Chopped"))
             {
                 Destroy(gameObject);
             }

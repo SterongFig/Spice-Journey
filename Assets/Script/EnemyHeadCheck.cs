@@ -16,16 +16,9 @@ public class EnemyHeadCheck : MonoBehaviour
             player.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 300f); // bounce effect
             player.GetComponent<PlayerController>().onGround = true;
         }
-        if(col.tag == "Floor")
+        if(col.tag == "Floor" || col.tag == "Platform")
         {
             player.GetComponent<PlayerController>().onGround = true;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.tag == "Floor")
-        {
-            player.GetComponent<PlayerController>().onGround = false;
         }
     }
 }

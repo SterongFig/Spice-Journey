@@ -108,7 +108,6 @@ public class PlateController : MonoBehaviour
         }
         if (col.tag == "Cooked")
         {
-            Debug.Log("printed cooked");
             if (col.gameObject.transform.parent == null)
             {
                 if (col.GetComponent<IngridientRead>().scriptIngridient.platetarget != Platetarget.cooked)
@@ -127,7 +126,6 @@ public class PlateController : MonoBehaviour
                     AddToList(col, Platetarget.cooked);
                     Destroy(col);
                 }
-                Debug.Log("cooked is tested");
             }
         }
         // food is a bit diffrent

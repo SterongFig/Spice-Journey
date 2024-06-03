@@ -32,7 +32,7 @@ public class IngridientsTrigger2 : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        if (col.tag == "Boiling")
+        if (col.tag == "Frying")
         {
             if ((GetComponent<IngridientRead>().scriptIngridient.cooktarget == Cooktarget.ingridient && tag == "Ingridients") ||
                 (GetComponent<IngridientRead>().scriptIngridient.cooktarget == Cooktarget.chop && tag == "Chopped"))

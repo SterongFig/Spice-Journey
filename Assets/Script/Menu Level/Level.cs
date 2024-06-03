@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class LevelMenu : MonoBehaviour
 {
+    public Sprite lockSprite;
+
     public void Back()
     {
         SceneManager.LoadScene("MainMenu");
     }
-
 
     public void OpenLevel(int levelId)
     {

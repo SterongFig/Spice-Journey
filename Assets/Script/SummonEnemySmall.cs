@@ -7,6 +7,8 @@ public class SummonEnemySmall : MonoBehaviour
 {
     [SerializeField]
     GameObject FinalEnemy;
+    [SerializeField]
+    float waiting;
     
     // Start is called before the first frame update
     void Start()
@@ -21,7 +23,7 @@ public class SummonEnemySmall : MonoBehaviour
         {
             GameObject newGameObject = Instantiate(FinalEnemy.gameObject);
             newGameObject.transform.position = transform.position - new Vector3 (0,1.5f,0);
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(waiting);
         }
     }
 }

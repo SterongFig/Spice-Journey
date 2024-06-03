@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     bool isSomething = false;
     bool isChop = false;
     public ChopBoard chopScript;
-    bool ignoreInput = false;
+    float ignoreInput = 0; // 0: main, 1: down, 2: nothing
     bool ignorePlatform = false;
     bool isPlate = false;
 
@@ -39,22 +39,6 @@ public class PlayerController : MonoBehaviour
     // 0 : player_chop ; 1 : jump
     List<AudioClip> audioClipList;
     AudioSource source;
-    AudioClip clip;
-
-    //PlayerMemorizeRaw-Ingridients Combination
-    //[SerializeField]
-    //// 0 : raw_lontong ; 1 : raw_sapi
-    //List<Sprite> rawSprite;
-    //[SerializeField]
-    //// 0 : lontong ; 1 : sapi
-    //List<Sprite> ingSprites;
-    //[SerializeField]
-    //// 0 : lontong_potong ; 1 : sapi_potong
-    //List<Sprite> chopSprites;
-
-    ////Player Memorize all the Ingridients Combination
-    //List<String> boil_ingridients = new() { "beras", "sapi_potong", "ayam_potong" };
-    //List<String> fry_ingridients = new() { "nasi", "mie", "cabai_potong", "bumbu_aceh" };
 
     // Player Settings
     [SerializeField]
@@ -64,10 +48,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     GameObject text_count_die;
     [SerializeField]
-    GameObject die_trigger;
+    GameObject playerInit;
     float die_counter = 5;
-    private const float init_position_x = 5.09f;
-    private const float init_position_y = 2.12f;
+    //private const float init_position_x = 5.09f;
+    //private const float init_position_y = 2.12f;
     private Vector3 default_vector = new Vector3(0.17f, 0.17f, 1);
 
 
@@ -79,8 +63,13 @@ public class PlayerController : MonoBehaviour
         //for ignore any don't need to collide
         GameObject[] ignore = ConcatenateArrays(
                 GameObject.FindGameObjectsWithTag("Table"),
+                GameObject.FindGameObjectsWithTag("Untagged"),
                 GameObject.FindGameObjectsWithTag("Raw"),
-                GameObject.FindGameObjectsWithTag("Board")
+                GameObject.FindGameObjectsWithTag("Board"),
+                GameObject.FindGameObjectsWithTag("Boiling"),
+                GameObject.FindGameObjectsWithTag("Frying"),
+                GameObject.FindGameObjectsWithTag("Charcoal"),
+                GameObject.FindGameObjectsWithTag("RawPlate")
             );
         foreach (var obj in ignore)
         {
@@ -107,10 +96,21 @@ public class PlayerController : MonoBehaviour
         {
             isPlate = false;
         }
-        
+
         //start Input
-        if (!ignoreInput)
+        if (ignoreInput == 0)
         {
+            // this velocity is for jump
+            float velo_value = rb.velocity.y;
+            if (velo_value < 0)
+            {
+                GetComponent<BoxCollider2D>().enabled = true;
+            }
+            if (velo_value > 0)
+            {
+                GetComponent<BoxCollider2D>().enabled = false;
+            }
+
             // moving left right
             hAxis = Input.GetAxis("Horizontal");
             Vector2 direction = new Vector2(hAxis, 0);
@@ -131,9 +131,21 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.UpArrow) && onGround)
             {
                 //ignore anything on feet
-                //GetComponent<BoxCollider2D>().enabled = false;
+                //for ignore any don't need to collide
+                //GameObject none = new GameObject("");
+                //none.AddComponent<BoxCollider2D>();
+                try
+                {
+                    List<GameObject> ignore = new() { tmpSomethingGrab != null ? tmpSomethingGrab : null, tmpRawGrab != null ? tmpRawGrab : null };
+                    foreach (var obj in ignore)
+                    {
+                        Physics2D.IgnoreCollision(obj.GetComponent<BoxCollider2D>(), gameObject.GetComponent<BoxCollider2D>());
+                    }
+                }
+                catch { }
                 rb.velocity = new Vector2(0, 1) * jumpPower;
-                //GetComponent<BoxCollider2D>().enabled = true;
+                source.clip = audioClipList[1];
+                source.Play();
             }
             animator.SetFloat("isJump", rb.velocity.y);
 
@@ -143,8 +155,9 @@ public class PlayerController : MonoBehaviour
                 GetComponent<BoxCollider2D>().enabled = false;
                 onGround = false;
                 // disable Ground and the code go to check below (else section)
-                ignoreInput = true;
+                ignoreInput = 1;
                 ignorePlatform = true;
+                StartCoroutine(tmp()); // prevent vault
             }
 
             //grab raw_plate
@@ -167,57 +180,80 @@ public class PlayerController : MonoBehaviour
             }
             //put plate
 
-
-            //function to grab and put object
-            if (Input.GetKeyDown(KeyCode.Space) && objectInHand == null)
+            try
             {
-                if (isSomething)
+                //function to grab and put object
+                if (Input.GetKeyDown(KeyCode.Space) && objectInHand == null)
                 {
-                    GrabObject(tmpSomethingGrab, true);
-                    animator.SetBool("isCarry", true);
-                    return;
+                    if (isSomething)
+                    {
+                        GrabObject(tmpSomethingGrab, true);
+                        animator.SetBool("isCarry", true);
+                        return;
+                    }
+                    else
+                    {
+                        GrabObject(tmpRawGrab, false);
+                        animator.SetBool("isCarry", true);
+                        return;
+                    }
                 }
-                else
+                //put object
+                if (Input.GetKeyDown(KeyCode.Space) && objectInHand != null)
                 {
-                    GrabObject(tmpRawGrab, false);
-                    animator.SetBool("isCarry", true);
-                    return;
+                    PlaceObjectBack(objectInHand);
+                    isPlate = false; //anything there is put include plate is now isPlate = false
+                    animator.SetBool("isCarry", false);
+                    //return;
                 }
             }
-            //put object
-            if (Input.GetKeyDown(KeyCode.Space) && objectInHand != null)
+            catch 
             {
-                PlaceObjectBack(objectInHand);
-                isPlate = false; //anything there is put include plate is now isPlate = false
-                animator.SetBool("isCarry", false);
-                //return;
+                tmpSomethingGrab = null;
+                tmpRawGrab = null;
+                return;
             }
+            
 
             // player do chopping - C key
             if (Input.GetKeyDown(KeyCode.C) && isChop && objectInHand == null && chopScript.checkChop())
             {
-                ignoreInput = true;
+                ignoreInput = 2;
                 // do player animation chopping
                 animator.SetBool("isChop", true);
                 source.clip = audioClipList[0];
                 source.Play();
             }
         }
-        if (ignoreInput)
+        if (ignoreInput == 1)
         {
             // turn on when hit Ground
             if (!onPlatform && onGround && ignorePlatform)
+            //if (onGround && ignorePlatform)
             {
                 GetComponent<BoxCollider2D>().enabled = true;
-                ignoreInput = false;
+                ignoreInput = 0;
                 ignorePlatform = false;
             }
         }
     }
 
+    private IEnumerator tmp()
+    {
+        yield return new WaitForSeconds(0.4f);
+        GetComponent<BoxCollider2D>().enabled = true;
+        ignoreInput = 0;
+        ignorePlatform = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         //on Smart Platform to Allow down
+        if (col.tag == "Floor" || col.tag == "Platform")
+        {
+            onGround = true;
+            GetComponent<BoxCollider2D>().enabled = true;
+        }
         if (col.tag == "Platform")
         {
             onPlatform = true;
@@ -279,7 +315,7 @@ public class PlayerController : MonoBehaviour
         {
             onPlatform = false;
         }
-        if (col.tag == "Ingridients" || col.tag == "Food" || col.tag == "Chopped")
+        if (col.tag == "Ingridients" || col.tag == "Food" || col.tag == "Chopped" || col.tag == "Cooked")
         {
             isSomething = false;
             tmpSomethingGrab = null;
@@ -343,9 +379,14 @@ public class PlayerController : MonoBehaviour
             {
                 clonedObject.AddComponent<IngridientsTrigger2>();
             }
-            if (clonedObject.GetComponent<IngridientRead>().scriptIngridient.cooktarget == Cooktarget.none)
+            //insert the IngridientsTrigger2 Script - coal purposes
+            if (clonedObject.GetComponent<IngridientRead>().scriptIngridient.isSmoked)
             {
                 clonedObject.AddComponent<IngridientsTrigger3>();
+            }
+            if (clonedObject.GetComponent<IngridientRead>().scriptIngridient.cooktarget == Cooktarget.none)
+            {
+                clonedObject.AddComponent<IngridientsTiggerF>();
             }
             //else don't add trigger to cook - example lontong is not cookable
             // Set the copy as the object in hand
@@ -364,7 +405,7 @@ public class PlayerController : MonoBehaviour
     // use by board to tell chop is done - change the object to chopped
     public void ChoppingDone()
     {
-        ignoreInput = false;
+        ignoreInput = 0;
         animator.SetBool("isChop", false);
         // use function grab object so player is make the change
         GrabChoppedNull(tmpSomethingGrab, true);
@@ -403,15 +444,14 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator PlayerDie()
     {
-        ignoreInput = true;
+        ignoreInput = 2;
         die_counter = 5;
         transform.localScale = default_vector; // orientation right
         bar_count.GetComponent<SpriteRenderer>().enabled = true;
         fill_count.GetComponent<SpriteRenderer>().enabled = true;
         text_count_die.GetComponent<MeshRenderer>().enabled = true;
         //gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        gameObject.transform.position = new Vector2(init_position_x, init_position_y);
-        die_trigger.transform.position = new Vector3(init_position_x - 1.2f, gameObject.transform.position.y - 3, 0);
+        gameObject.transform.position = playerInit.transform.position;
         while (true)
         {
             text_count_die.GetComponent<TextMesh>().text = die_counter.ToString();
@@ -427,7 +467,7 @@ public class PlayerController : MonoBehaviour
         text_count_die.GetComponent<MeshRenderer>().enabled = false;
         //gameObject.GetComponent<SpriteRenderer>().enabled = true;
         die_counter = 5;
-        ignoreInput = false;
+        ignoreInput = 0;
         onGround = true;
         animator.SetFloat("dieNums", 1);
         animator.SetBool("isDie", false);

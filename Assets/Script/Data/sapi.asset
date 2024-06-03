@@ -21,6 +21,6 @@ MonoBehaviour:
   isCook: 1
   isBoiled: 1
   isFried: 0
-  isSmoked: 1
+  isSmoked: 0
   platetarget: 2
   cooktarget: 2

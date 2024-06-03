@@ -13,6 +13,7 @@ public class ScriptingMenu : ScriptableObject
     public List<Sprite> targetSprite;
     public Cook from;
     public float addScore;
+    public float waitingTime;
 }
 
 public enum Cook { none, boil, fry, smoke }

@@ -1,11 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BoilingPot : MonoBehaviour
 {
@@ -18,20 +13,26 @@ public class BoilingPot : MonoBehaviour
     GameObject fire;
     [SerializeField]
     GameObject pointReject;
+    [SerializeField]
+    Sprite preCircle;
 
     [SerializeField] ScoreManager scoreManager;
 
     [SerializeField]
     List<GameObject> bahanMasuk;
+    [SerializeField]
+    List<GameObject> Icon;
+    float Iconloc = -0.5f;
 
     float fillbar = 0;
-    const float waktuMasak = 15; // default 15
+    const float waktuMasak = 11; // default 11
 
     AudioSource source;
-    AudioClip clip;
+    Animator animator;
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         source = GetComponent<AudioSource>();
     }
 
@@ -40,7 +41,10 @@ public class BoilingPot : MonoBehaviour
         //update fillbar
         if (fillbar > 0)
         {
-            fill.GetComponent<RectTransform>().localScale = new Vector3((fillbar/waktuMasak) * 12, fill.GetComponent<RectTransform>().localScale.y, fill.GetComponent<RectTransform>().localScale.z);
+            fill.GetComponent<RectTransform>().localScale = 
+                new Vector3((fillbar/waktuMasak) * 12, 
+                fill.GetComponent<RectTransform>().localScale.y, 
+                fill.GetComponent<RectTransform>().localScale.z);
         }
     }
 
@@ -72,6 +76,9 @@ public class BoilingPot : MonoBehaviour
             {
                 fillbar = fillbar / 2;
             }
+            //add icon
+            GameObject tmp = CreateIcon(col.GetComponent<SpriteRenderer>().sprite);
+            Icon.Add(tmp);
         }
         // forbid any doesn't belong here
         if (!col.GetComponent<IngridientRead>().scriptIngridient.isBoiled)
@@ -117,6 +124,8 @@ public class BoilingPot : MonoBehaviour
         // fill start from zero scale - y dan z tetap
         fill.GetComponent<RectTransform>().localScale = new Vector3(0, fill.GetComponent<RectTransform>().localScale.y, fill.GetComponent<RectTransform>().localScale.z);
         fire.GetComponent<SpriteRenderer>().enabled = true;
+        source.Play();
+        animator.SetBool("isCook", true);
 
         // Tunggu selama waktu memasak
         // pakai true dan break/berhenti jika barfill sudah penuh
@@ -136,11 +145,12 @@ public class BoilingPot : MonoBehaviour
         fire.GetComponent<SpriteRenderer>().enabled = false;
         fillbar = 0;
         coObject = null;
+        source.Stop();
+        animator.SetBool("isCook", false);
 
         // logic keluaran bahan makanan yang jadi
         HasilKeluaran();
     }
-
 
     private void HasilKeluaran()
     {
@@ -194,6 +204,37 @@ public class BoilingPot : MonoBehaviour
         {
             Destroy(item);
         }
+        foreach (var item in Icon)
+        {
+            Destroy(item);
+        }
         bahanMasuk.Clear();
+        Icon.Clear();
+        Iconloc = -0.5f;
+    }
+
+    private GameObject CreateIcon(Sprite obj)
+    {
+        GameObject icon = new GameObject("Icon");
+        var render = icon.AddComponent<SpriteRenderer>();
+        render.sprite = preCircle;
+        render.sortingLayerName = "Kitchen";
+        render.sortingOrder = 4;
+        var script = icon.AddComponent<CircleIcon>();
+        GameObject child = new GameObject("child");
+        var spriteChild = child.AddComponent<SpriteRenderer>();
+        spriteChild.sprite = obj;
+        spriteChild.sortingLayerName = "Kitchen";
+        spriteChild.sortingOrder = 5;
+        child.transform.position = new Vector3(-0.029f, -0.1f, 1);
+        child.transform.localScale = Vector3.one * 0.0589f;
+        child.transform.parent = icon.transform;
+        icon.transform.parent = transform;
+        script.child = child;
+        script.setSprite = obj;
+        icon.transform.localScale = Vector3.one * 4.5f;
+        icon.transform.position = transform.position + new Vector3 (Iconloc, 1.8f, 0);
+        Iconloc += 0.5f;
+        return icon;
     }
 }

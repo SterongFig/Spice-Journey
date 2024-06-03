@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 12
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,13 +37,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -52,9 +52,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -108,18 +108,282 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: fryingpan_sprite_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2736
+        width: 1184
+        height: 879
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8140960aee2f1294f949aa058b221f1b
+      internalID: -1149347723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fryingpan_sprite_1
+      rect:
+        serializedVersion: 2
+        x: 1238
+        y: 2719
+        width: 1184
+        height: 878
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af2915bfee89906448144be3ae73a320
+      internalID: 437703650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fryingpan_sprite_2
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 2733
+        width: 1184
+        height: 878
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad14396912da7434fa5ad75504feb5ad
+      internalID: -1472395752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fryingpan_sprite_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1796
+        width: 1184
+        height: 878
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4451d39824a244640b685401e3019631
+      internalID: 1233888904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fryingpan_sprite_4
+      rect:
+        serializedVersion: 2
+        x: 1235
+        y: 1790
+        width: 1184
+        height: 878
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97cd8b131d089b248b92eb1ec6c08278
+      internalID: 786998720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fryingpan_sprite_5
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 1796
+        width: 1184
+        height: 878
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 291d697cb2f20e0498f21111c515ddcb
+      internalID: 1902139688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fryingpan_sprite_6
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 908
+        width: 1184
+        height: 878
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 940f0b50ac998e742b40c2469e752b3f
+      internalID: 497725860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fryingpan_sprite_7
+      rect:
+        serializedVersion: 2
+        x: 1231
+        y: 888
+        width: 1184
+        height: 878
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4ed4700f6103f646bbce0f5c1048494
+      internalID: -2033168591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fryingpan_sprite_8
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 893
+        width: 1184
+        height: 878
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e01b01a4dad87b469cdeb738c6798ee
+      internalID: -1054491270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fryingpan_sprite_9
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 0
+        width: 1184
+        height: 878
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19ce0be7711a1a94c9fc7afb64c9e9d3
+      internalID: -1649701632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fryingpan_sprite_10
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 0
+        width: 1184
+        height: 878
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0ad7ec5da77fe74ab46b0a78f5ced80
+      internalID: 345004515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fryingpan_sprite_11
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 0
+        width: 1184
+        height: 878
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb3992ee297f07b49acd7fd306fc33f5
+      internalID: -121010368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      fryingpan_sprite_0: -1149347723
+      fryingpan_sprite_1: 437703650
+      fryingpan_sprite_10: 345004515
+      fryingpan_sprite_11: -121010368
+      fryingpan_sprite_2: -1472395752
+      fryingpan_sprite_3: 1233888904
+      fryingpan_sprite_4: 786998720
+      fryingpan_sprite_5: 1902139688
+      fryingpan_sprite_6: 497725860
+      fryingpan_sprite_7: -2033168591
+      fryingpan_sprite_8: -1054491270
+      fryingpan_sprite_9: -1649701632
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -12,6 +12,13 @@ public class DeleveryManagerUI : MonoBehaviour
     [SerializeField] Canvas canvas;
     bool update = false;
 
+    AudioSource source;
+
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
+
     void Update()
     {
         if (update)
@@ -36,6 +43,7 @@ public class DeleveryManagerUI : MonoBehaviour
         m_Menu.Add(menuRecepie);
         o_Menu.Add(CreateMenu(menuRecepie));
         update = true;
+        source.Play();
         return true; // the menu is added
     }
 
@@ -77,6 +85,7 @@ public class DeleveryManagerUI : MonoBehaviour
         controller.bar = newBar;
         controller.fill = newFill;
         controller.scoreManager = canvas.GetComponent<ScoreManager>();
+        controller.waktutunggu = menuRecepie.waitingTime;
         return newGameObject;
     }
 }

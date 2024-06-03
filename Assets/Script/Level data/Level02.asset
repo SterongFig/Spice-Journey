@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c631c7c291efd3f48af87ebd64c86eb5, type: 3}
+  m_Name: Level02
+  m_EditorClassIdentifier: 
+  levelName: Level02
+  levelDescription: Double Platform
+  levelScene: Level02
+  indexes: 2
+  star_init:
+  - 100
+  - 150
+  - 200
+  time: 181
+  menuServe:
+  - {fileID: 11400000, guid: 3faa84e161e187843868085841c71914, type: 2}
+  - {fileID: 11400000, guid: 5ad71b019ed70ba4292510f963413823, type: 2}
