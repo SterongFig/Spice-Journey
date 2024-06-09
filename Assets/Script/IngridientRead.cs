@@ -5,4 +5,8 @@ using UnityEngine;
 public class IngridientRead : MonoBehaviour
 {
     public ScriptIngridient scriptIngridient;
+    public void Replace(ScriptIngridient newScript)
+    {
+        this.scriptIngridient = newScript;
+}
 }

@@ -17,7 +17,8 @@ public class ScriptIngridient : ScriptableObject
     public bool isSmoked;
     public Platetarget platetarget;
     public Cooktarget cooktarget;
+    public ScriptIngridient secondaryTF;
 }
 
-public enum Platetarget { ingridient, chop, cooked }
+public enum Platetarget { ingridient, chop, cooked, none }
 public enum Cooktarget { none, ingridient, chop }

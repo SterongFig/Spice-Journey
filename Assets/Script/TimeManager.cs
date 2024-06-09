@@ -10,7 +10,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] ScriptingLevel dataLevel;
     
     [SerializeField] Text timerText;
-    [SerializeField] float remainingTime;
+    float remainingTime;
     [SerializeField] Text countdownText; // Reference to the UI Text element for countdown
     int countdownTime = 3; // Countdown time in seconds
     [SerializeField] GameObject holdObject; // Reference to the "Hold" GameObject

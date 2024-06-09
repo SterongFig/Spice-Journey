@@ -25,7 +25,7 @@ public class FryingPan : MonoBehaviour
     float Iconloc = -0.5f;
 
     float fillbar = 0;
-    const float waktuMasak = 11;
+    const float waktuMasak = 15; // default 15
 
     AudioSource source;
     Animator animator;

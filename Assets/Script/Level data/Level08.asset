@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c631c7c291efd3f48af87ebd64c86eb5, type: 3}
+  m_Name: Level08
+  m_EditorClassIdentifier: 
+  levelName: Level08
+  levelDescription: NasGor NasGO!
+  levelScene: Level08
+  indexes: 8
+  star_init:
+  - 200
+  - 300
+  - 500
+  time: 211
+  menuServe:
+  - {fileID: 11400000, guid: e0db1d7fc13f0e34f923c80885fa762b, type: 2}
+  - {fileID: 11400000, guid: dd21ac96ac51fe442aaa583115b0337d, type: 2}
+  - {fileID: 11400000, guid: e985cc12e641e804ba7706e42a358131, type: 2}
+  - {fileID: 11400000, guid: 3fe4b9598f5860b428b7b4237315eeab, type: 2}

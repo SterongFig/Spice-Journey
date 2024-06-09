@@ -156,6 +156,52 @@ public class BoilingPot : MonoBehaviour
     {
         if(bahanMasuk.Count < 2)
         {
+            if (bahanMasuk[0].GetComponent<IngridientRead>().scriptIngridient.secondaryTF != null)
+            {
+                ScriptIngridient data = bahanMasuk[0].GetComponent<IngridientRead>().scriptIngridient.secondaryTF;
+                GameObject clonedObject2 = Instantiate(bahanMasuk[0], transform.position, Quaternion.identity);
+                //must in ing tag
+                clonedObject2.name = data.name;
+                clonedObject2.tag = "Ingridients";
+                var sprite2 = clonedObject2.GetComponent<SpriteRenderer>();
+                sprite2.sprite = data.ingSprite;
+                sprite2.enabled = true;
+                //remove any Trigger Components first
+                try { Destroy(clonedObject2.GetComponent<IngridientsTiggerF>()); } catch { }
+                try { Destroy(clonedObject2.GetComponent<IngridientsTrigger>()); } catch { }
+                try { Destroy(clonedObject2.GetComponent<IngridientsTrigger2>()); } catch { }
+                try { Destroy(clonedObject2.GetComponent<IngridientsTrigger3>()); } catch { }
+                //adding new components then enable
+                if (data.isBoiled)
+                {
+                    clonedObject2.AddComponent<IngridientsTrigger>();
+                }
+                //insert the IngridientsTrigger2 Script - frying purposes
+                if (data.isFried)
+                {
+                    clonedObject2.AddComponent<IngridientsTrigger2>();
+                }
+                //insert the IngridientsTrigger3 Script - coal purposes
+                if (data.isSmoked)
+                {
+                    clonedObject2.AddComponent<IngridientsTrigger3>();
+                }
+                if (data.cooktarget == Cooktarget.none)
+                {
+                    clonedObject2.AddComponent<IngridientsTiggerF>();
+                }
+                //sprite must remain in ing
+                clonedObject2.GetComponent<IngridientRead>().scriptIngridient = data; // data is change here
+                //replace the scriptIng
+                clonedObject2.GetComponent<BoxCollider2D>().enabled = true;
+                clonedObject2.GetComponent<CircleCollider2D>().enabled = true;
+                clonedObject2.transform.parent = null;
+                clonedObject2.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                clonedObject2.GetComponent<Transform>().localScale = new Vector3(0.11f, 0.11f, 0.11f);
+                clonedObject2.transform.position = pointReject.transform.position;
+                Finally();
+                return;
+            }
             GameObject clonedObject = Instantiate(bahanMasuk[0], transform.position, Quaternion.identity);
             clonedObject.tag = "Cooked";
             var sprite = clonedObject.GetComponent<SpriteRenderer>();
@@ -179,6 +225,12 @@ public class BoilingPot : MonoBehaviour
                 tmpName.Add(item.name);
             }
             Sprite sprite = scoreManager.CheckMenuCombination(tmpSprite);
+            // if there is no possible combination = fail to accept the cooking
+            if (sprite == null)
+            {
+                Finally();
+                return;
+            }
             GameObject newGameObject = new GameObject("kombinasi_masak");
             newGameObject.tag = "Food";
             var spriteCloned = newGameObject.AddComponent<SpriteRenderer>();
@@ -198,19 +250,23 @@ public class BoilingPot : MonoBehaviour
             IngTrigF.nameInPlate = tmpName;
             newGameObject.transform.position = pointReject.transform.position;
         }
+        Finally();
 
         // Kosongkan daftar bahan makanan (opsi ini bisa diganti dengan mengeluarkan bahan)
-        foreach (var item in bahanMasuk)
+        void Finally()
         {
-            Destroy(item);
+            foreach (var item in bahanMasuk)
+            {
+                Destroy(item);
+            }
+            foreach (var item in Icon)
+            {
+                Destroy(item);
+            }
+            bahanMasuk.Clear();
+            Icon.Clear();
+            Iconloc = -0.5f;
         }
-        foreach (var item in Icon)
-        {
-            Destroy(item);
-        }
-        bahanMasuk.Clear();
-        Icon.Clear();
-        Iconloc = -0.5f;
     }
 
     private GameObject CreateIcon(Sprite obj)

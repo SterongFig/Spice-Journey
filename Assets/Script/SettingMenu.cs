@@ -7,16 +7,21 @@ using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
 {
+    [SerializeField] AudioSource bgm;
     public Slider masterVol, musicVol, sfxVol;
     public AudioMixer mainMixer;
 
     void Start()
     {
+        float timestamp = PlayerPrefs.GetFloat("main_bgm", 0.0f);
+        bgm.time = timestamp;
+        bgm.Play();
         LoadVolumeSettings();
     }
 
     public void Back()
     {
+        PlayerPrefs.SetFloat("main_bgm", bgm.time);
         SceneManager.LoadScene("MainMenu");
     }
 

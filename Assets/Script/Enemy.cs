@@ -37,9 +37,9 @@ public class Enemy : MonoBehaviour
             StopAllCoroutines();
             onGround = true;
         }
-        if(col.tag == "Player" || col.tag == "Trash" || col.tag == "Untagged")
+        if(col.tag == "Player" || col.tag == "Trash" || col.tag == "Untagged" || col.tag == "Serving")
         {
-            return;
+            Physics2D.IgnoreCollision(col.gameObject.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
         }
         if(name != "Enemy") // it bump to wall or other, just for clone
         {

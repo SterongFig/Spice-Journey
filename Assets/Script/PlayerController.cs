@@ -134,15 +134,17 @@ public class PlayerController : MonoBehaviour
                 //for ignore any don't need to collide
                 //GameObject none = new GameObject("");
                 //none.AddComponent<BoxCollider2D>();
-                try
-                {
-                    List<GameObject> ignore = new() { tmpSomethingGrab != null ? tmpSomethingGrab : null, tmpRawGrab != null ? tmpRawGrab : null };
-                    foreach (var obj in ignore)
-                    {
-                        Physics2D.IgnoreCollision(obj.GetComponent<BoxCollider2D>(), gameObject.GetComponent<BoxCollider2D>());
-                    }
-                }
-                catch { }
+                GetComponent<BoxCollider2D>().enabled = false;
+                onGround = false;
+                //try
+                //{
+                //    List<GameObject> ignore = new() { tmpSomethingGrab != null ? tmpSomethingGrab : null, tmpRawGrab != null ? tmpRawGrab : null };
+                //    foreach (var obj in ignore)
+                //    {
+                //        Physics2D.IgnoreCollision(obj.GetComponent<BoxCollider2D>(), gameObject.GetComponent<BoxCollider2D>());
+                //    }
+                //}
+                //catch { }
                 rb.velocity = new Vector2(0, 1) * jumpPower;
                 source.clip = audioClipList[1];
                 source.Play();
@@ -240,7 +242,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator tmp()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.1f);
         GetComponent<BoxCollider2D>().enabled = true;
         ignoreInput = 0;
         ignorePlatform = false;
@@ -379,7 +381,7 @@ public class PlayerController : MonoBehaviour
             {
                 clonedObject.AddComponent<IngridientsTrigger2>();
             }
-            //insert the IngridientsTrigger2 Script - coal purposes
+            //insert the IngridientsTrigger3 Script - coal purposes
             if (clonedObject.GetComponent<IngridientRead>().scriptIngridient.isSmoked)
             {
                 clonedObject.AddComponent<IngridientsTrigger3>();

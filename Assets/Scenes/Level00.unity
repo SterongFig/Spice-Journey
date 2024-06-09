@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 23967810}
   - component: {fileID: 23967809}
   m_Layer: 0
-  m_Name: raw_sapi
+  m_Name: raw_beras
   m_TagString: Raw
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fd6d5d026fdc984886b8881ccde220b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptIngridient: {fileID: 11400000, guid: 43ecd5916a44c4d4b95a47bd5cdc298a, type: 2}
+  scriptIngridient: {fileID: 11400000, guid: 3f261dd40c6ad8e42afe816dcec5ef4a, type: 2}
 --- !u!50 &23967810
 Rigidbody2D:
   serializedVersion: 4
@@ -536,7 +536,7 @@ SpriteRenderer:
   m_SortingLayerID: 1884317273
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 6723d452e8e9b134d8f03815c6cee946, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 10df758c92936c9409d73ec001c7efeb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2145,6 +2145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FinalEnemy: {fileID: 1422084951}
+  waiting: 100
 --- !u!1 &245784554
 GameObject:
   m_ObjectHideFlags: 0
@@ -2887,7 +2888,7 @@ MonoBehaviour:
   fire: {fileID: 1937274211}
   pointReject: {fileID: 1036575632}
   preCircle: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  scoreManager: {fileID: 0}
+  scoreManager: {fileID: 1934482313}
   bahanMasuk: []
   Icon: []
 --- !u!212 &281622893
@@ -3340,7 +3341,7 @@ MonoBehaviour:
   objInPlate: []
   nameInPlate: []
   sprite_combination: {fileID: 0}
-  scoreManager: {fileID: 0}
+  scoreManager: {fileID: 1934482313}
 --- !u!1 &301793021
 GameObject:
   m_ObjectHideFlags: 0
@@ -12813,7 +12814,6 @@ MonoBehaviour:
   bar_count: {fileID: 585355076}
   fill_count: {fileID: 285269554}
   text_count_die: {fileID: 979003616}
-  die_trigger: {fileID: 1493315535}
   playerInit: {fileID: 1699900905}
 --- !u!50 &1613339442
 Rigidbody2D:
@@ -13780,7 +13780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   warn: {fileID: 1411556463}
-  canvas: {fileID: 0}
+  canvas: {fileID: 1934482316}
 --- !u!1 &1684086377
 GameObject:
   m_ObjectHideFlags: 0
@@ -14605,7 +14605,7 @@ MonoBehaviour:
   fire: {fileID: 1436288402}
   pointReject: {fileID: 1036575632}
   preCircle: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  scoreManager: {fileID: 0}
+  scoreManager: {fileID: 1934482313}
   bahanMasuk: []
   Icon: []
 --- !u!61 &1790100545

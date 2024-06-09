@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] ScriptingLevel dataLevel;
-    [SerializeField] //Menu that are serving UP
     List<ScriptingMenu> m_Menu; //ini hanya menu yang akan di serve
 
     [SerializeField]

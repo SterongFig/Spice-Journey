@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdfb1dbcfc56e04189d16aa90698914, type: 3}
+  m_Name: nasigoreng_telur
+  m_EditorClassIdentifier: 
+  name: nasigoreng_telur
+  description: nasi digoreng khas bumbu spesial + telur dadar
+  artSprite: {fileID: 21300000, guid: 42a4d125f1777de4a812cb4c129ba0c0, type: 3}
+  billMenuSprite: {fileID: 21300000, guid: d2ca3025d0b13eb4d8e555f6fd55473d, type: 3}
+  combination:
+  - nasi
+  - bumbu_spesial
+  - telur_masak
+  targetSprite:
+  - {fileID: 21300000, guid: 50c515f932703ac4abeede6dc4cfa530, type: 3}
+  - {fileID: 21300000, guid: d290d8c229647464d8c1cf0aadb4256c, type: 3}
+  - {fileID: 21300000, guid: ed4e120763dbe4c46b22b362294c172d, type: 3}
+  from: 2
+  addScore: 23
+  waitingTime: 50

@@ -20,6 +20,6 @@ MonoBehaviour:
   - 10
   - 100
   - 1000
-  time: 36
+  time: 9999
   menuServe:
   - {fileID: 11400000, guid: 03776f95ecc46f545a9665d6d88c2133, type: 2}

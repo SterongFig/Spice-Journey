@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57702aec4bdda3f44a3063d4165e5fce, type: 3}
+  m_Name: sapi_c
+  m_EditorClassIdentifier: 
+  name: sapi (sate)
+  rawSprite: {fileID: 21300000, guid: 6723d452e8e9b134d8f03815c6cee946, type: 3}
+  ingSprite: {fileID: 21300000, guid: 65bdf625a8daf464f8a9c21326e1e520, type: 3}
+  chopSprite: {fileID: 21300000, guid: e08b840dce20f1347945386da441355a, type: 3}
+  cookSprite: {fileID: 21300000, guid: cf94022a4a70e284fab7c65085b38ed1, type: 3}
+  isChop: 1
+  isCook: 1
+  isBoiled: 0
+  isFried: 0
+  isSmoked: 1
+  platetarget: 2
+  cooktarget: 2

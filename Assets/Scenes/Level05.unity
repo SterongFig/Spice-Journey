@@ -1791,7 +1791,7 @@ AudioSource:
   m_GameObject: {fileID: 177063634}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2430828918034998736, guid: 0507c51a0ee6f9646892042efef5c6f0, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.485
@@ -6398,7 +6398,7 @@ AudioSource:
   m_GameObject: {fileID: 757154440}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2430828918034998736, guid: 0507c51a0ee6f9646892042efef5c6f0, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.35
@@ -7141,7 +7141,7 @@ AudioSource:
   m_GameObject: {fileID: 836553049}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2628862678939290499, guid: 0507c51a0ee6f9646892042efef5c6f0, type: 2}
   m_audioClip: {fileID: 8300000, guid: 20bf8898c5f4e2e498aa5ab47319ff7c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.35
@@ -8019,7 +8019,6 @@ MonoBehaviour:
   scoreManager: {fileID: 970767105}
   dataLevel: {fileID: 11400000, guid: 3a310e0b0b12079458d47f83c4690a19, type: 2}
   timerText: {fileID: 2135029244}
-  remainingTime: 231
   countdownText: {fileID: 1802316655}
   holdObject: {fileID: 926577713}
   audioClipList:
@@ -8042,10 +8041,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataLevel: {fileID: 11400000, guid: 3a310e0b0b12079458d47f83c4690a19, type: 2}
-  m_Menu:
-  - {fileID: 11400000, guid: 03776f95ecc46f545a9665d6d88c2133, type: 2}
-  - {fileID: 11400000, guid: 2c8ea8acf91c4f14dbc8df110fe783a4, type: 2}
-  - {fileID: 11400000, guid: 5ad71b019ed70ba4292510f963413823, type: 2}
   ServingOrder: {fileID: 2142211593}
   scoreText: {fileID: 454987027}
   multiText: {fileID: 500397206}
@@ -14204,7 +14199,7 @@ AudioSource:
   m_GameObject: {fileID: 1796397514}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2430828918034998736, guid: 0507c51a0ee6f9646892042efef5c6f0, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.35

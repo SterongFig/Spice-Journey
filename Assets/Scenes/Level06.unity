@@ -1176,7 +1176,7 @@ AudioSource:
   m_GameObject: {fileID: 177063634}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2430828918034998736, guid: 0507c51a0ee6f9646892042efef5c6f0, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.485
@@ -4927,7 +4927,7 @@ AudioSource:
   m_GameObject: {fileID: 757154440}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2430828918034998736, guid: 0507c51a0ee6f9646892042efef5c6f0, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.35
@@ -5586,8 +5586,8 @@ AudioSource:
   m_GameObject: {fileID: 836553049}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 20bf8898c5f4e2e498aa5ab47319ff7c, type: 3}
+  OutputAudioMixerGroup: {fileID: -2628862678939290499, guid: 0507c51a0ee6f9646892042efef5c6f0, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 61b5ee7512b151847a4aa84052f1b19d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.35
   m_Pitch: 1
@@ -6013,7 +6013,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 22880ebaa22633045b39c9a68f0d0d95, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3a7a7a503f4bc6543a469f111a4b725e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.279
   m_Pitch: 2
@@ -6390,7 +6390,6 @@ MonoBehaviour:
   scoreManager: {fileID: 970767105}
   dataLevel: {fileID: 11400000, guid: dafa509ed780fdc4994a5a8491500db4, type: 2}
   timerText: {fileID: 2135029244}
-  remainingTime: 181
   countdownText: {fileID: 1802316655}
   holdObject: {fileID: 926577713}
   audioClipList:
@@ -6413,8 +6412,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataLevel: {fileID: 11400000, guid: dafa509ed780fdc4994a5a8491500db4, type: 2}
-  m_Menu:
-  - {fileID: 11400000, guid: 03776f95ecc46f545a9665d6d88c2133, type: 2}
   ServingOrder: {fileID: 2142211593}
   scoreText: {fileID: 454987027}
   multiText: {fileID: 500397206}
@@ -7564,7 +7561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FinalEnemy: {fileID: 1422084951}
-  waiting: 55
+  waiting: 40
 --- !u!61 &1220630040
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10504,7 +10501,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 22880ebaa22633045b39c9a68f0d0d95, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3a7a7a503f4bc6543a469f111a4b725e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.279
   m_Pitch: 2
@@ -11944,7 +11941,7 @@ AudioSource:
   m_GameObject: {fileID: 1796397514}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2430828918034998736, guid: 0507c51a0ee6f9646892042efef5c6f0, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.35
@@ -13726,7 +13723,7 @@ Transform:
   m_GameObject: {fileID: 1993224679}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -1.86, z: 0}
   m_LocalScale: {x: 1.01, y: 1.01, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children: []

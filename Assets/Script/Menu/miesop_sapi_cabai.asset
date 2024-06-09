@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdfb1dbcfc56e04189d16aa90698914, type: 3}
+  m_Name: miesop_sapi_cabai
+  m_EditorClassIdentifier: 
+  name: miesop_sapi_cabai
+  description: mie khas bumbu bakso + sapi + cabai
+  artSprite: {fileID: 21300000, guid: 37677f9c337c7cb408df35d7e9bca51b, type: 3}
+  billMenuSprite: {fileID: 21300000, guid: 39ef80904df386f4799a42a09e573b3a, type: 3}
+  combination:
+  - mie_masak
+  - bumbu_bakso
+  - bakso_sapi
+  - cabai_potong
+  targetSprite:
+  - {fileID: 21300000, guid: dab048b599f2d2c4eb132842654bb42f, type: 3}
+  - {fileID: 21300000, guid: 633d45fa53c738e438a2cf0b3b593e0a, type: 3}
+  - {fileID: 21300000, guid: 309fde52ac198c0488cd850bddb8a26a, type: 3}
+  - {fileID: 21300000, guid: 1d7ac5887230a1142b99ab6c49eb31e4, type: 3}
+  from: 1
+  addScore: 28
+  waitingTime: 55

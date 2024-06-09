@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 public class ScoreUI : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class ScoreUI : MonoBehaviour
     [SerializeField] GameObject highScoreObj;
     [SerializeField] GameObject[] starObjects; // Array of star GameObjects
     [SerializeField] TMP_Text[] starNum; // Array of star Text
+
+    //audio
+    [SerializeField] AudioSource star_bing;
+    [SerializeField] AudioSource audiance;
+    [SerializeField] AudioSource drum;
+    [SerializeField] AudioSource waw;
 
     private string sceneName;
     private float plusScore;
@@ -44,6 +51,7 @@ public class ScoreUI : MonoBehaviour
         {
             starNum[i].text = levelList[index].star_init[i].ToString();
         }
+        drum.Play();
         UpdateUI();
     }
 
@@ -57,21 +65,38 @@ public class ScoreUI : MonoBehaviour
         highScoreObj.SetActive(highScore);
 
         // Determine how many stars to display based on total score
-        CalculateDisplayedStars(totalScore);
+        StopAllCoroutines();
+        StartCoroutine(CalculateDisplayedStars(totalScore));
     }
 
-    private void CalculateDisplayedStars(float score)
+    private IEnumerator CalculateDisplayedStars(float score)
     {
+        yield return new WaitForSecondsRealtime(1.5f);
+        bool all_in = true;
+        float star_count = 0;
         for (int i = 0; i < starObjects.Length; i++)
         {
             if (score <= star_aim_score[i])
             {
                 starObjects[i].GetComponent<Image>().color = new Color(0.09f,0.09f,0.09f);
+                all_in = false;
+                star_count++;
+                yield return new WaitForSeconds(0.5f);
             }
-            else
+            else //achive able
             {
                 starObjects[i].GetComponent<Image>().color = new Color(1f,1f,1f);
+                star_bing.Play();
+                yield return new WaitForSecondsRealtime(0.5f);
             }
+        }
+        if (all_in)
+        {
+            audiance.Play();
+        }
+        if (star_count == 3)
+        {
+            waw.Play();
         }
     }
 

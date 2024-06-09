@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c631c7c291efd3f48af87ebd64c86eb5, type: 3}
+  m_Name: Level07
+  m_EditorClassIdentifier: 
+  levelName: Level07
+  levelDescription: More Satay!!
+  levelScene: Level07
+  indexes: 7
+  star_init:
+  - 150
+  - 200
+  - 250
+  time: 166
+  menuServe:
+  - {fileID: 11400000, guid: 9aa08963e9479e54fb0af41dc73374d0, type: 2}
+  - {fileID: 11400000, guid: 5548dd1035996b141bca816e282c21e9, type: 2}
+  - {fileID: 11400000, guid: 1cb8e940a2eed4542921a8d3f2f9fae1, type: 2}
+  - {fileID: 11400000, guid: 09c925c49a97acc40a4e0818d05b16e5, type: 2}
