@@ -13,7 +13,8 @@ public class LevelBoxController : MonoBehaviour
 
     void Start()
     {
-        if (LevelData == null)
+        int tmp = PlayerPrefs.GetInt("LevelOpen", 0);
+        if (LevelData.indexes > tmp)
         {
             highscoreObj.text = "";
             text.SetActive(false);

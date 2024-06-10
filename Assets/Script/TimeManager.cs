@@ -132,4 +132,20 @@ public class TimeManager : MonoBehaviour
         PlayerPrefs.SetInt("tmpDataLevel", dataLevel.indexes);
         SceneManager.LoadScene("ScoreUI");
     }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+    }
+
+    public void QuitGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("LevelMenu");
+    }
 }

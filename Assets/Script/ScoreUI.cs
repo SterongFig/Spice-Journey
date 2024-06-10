@@ -37,6 +37,7 @@ public class ScoreUI : MonoBehaviour
     {
         // get data level
         index = PlayerPrefs.GetInt("tmpDataLevel");
+        PlayerPrefs.SetInt("LevelOpen", index + 1);
         sceneName = levelList[index].levelName;
         // data using float
         plusScore = PlayerPrefs.GetFloat("tmpPlusPoint");
