@@ -29,6 +29,7 @@ public class ScoreUI : MonoBehaviour
     private float totalScore;
     private bool highScore;
     private int index;
+    private int opened;
     private List<float> star_aim_score;
 
     [SerializeField] List<ScriptingLevel> levelList;
@@ -37,7 +38,11 @@ public class ScoreUI : MonoBehaviour
     {
         // get data level
         index = PlayerPrefs.GetInt("tmpDataLevel");
-        PlayerPrefs.SetInt("LevelOpen", index + 1);
+        opened = PlayerPrefs.GetInt("LevelOpen"); // level already opened
+        if(opened == index)
+        { 
+            PlayerPrefs.SetInt("LevelOpen", index + 1); 
+        }
         sceneName = levelList[index].levelName;
         // data using float
         plusScore = PlayerPrefs.GetFloat("tmpPlusPoint");
@@ -74,14 +79,12 @@ public class ScoreUI : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1.5f);
         bool all_in = true;
-        float star_count = 0;
         for (int i = 0; i < starObjects.Length; i++)
         {
-            if (score <= star_aim_score[i])
+            if (score < star_aim_score[i])
             {
                 starObjects[i].GetComponent<Image>().color = new Color(0.09f,0.09f,0.09f);
                 all_in = false;
-                star_count++;
                 yield return new WaitForSeconds(0.5f);
             }
             else //achive able
@@ -95,7 +98,7 @@ public class ScoreUI : MonoBehaviour
         {
             audiance.Play();
         }
-        if (star_count == 3)
+        if (score < star_aim_score[0])
         {
             waw.Play();
         }

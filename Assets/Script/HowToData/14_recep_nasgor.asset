@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b737091900ec89499b655d36d9a758a, type: 3}
+  m_Name: 14_recep_nasgor
+  m_EditorClassIdentifier: 
+  indexes: 14
+  img: {fileID: 21300000, guid: db916563f63a9f340875d10ea09c8e59, type: 3}
+  title: New recepie
+  description: nasgor biasa
+  openAt: 8

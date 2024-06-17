@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b737091900ec89499b655d36d9a758a, type: 3}
+  m_Name: 13_resep_satesapi
+  m_EditorClassIdentifier: 
+  indexes: 13
+  img: {fileID: 21300000, guid: 2313545ad0ef61f40af63d31a3e06ee5, type: 3}
+  title: New Recepie
+  description: resep sate sapi lontong bumbu
+  openAt: 7

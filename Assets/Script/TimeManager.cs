@@ -143,6 +143,12 @@ public class TimeManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void QuitGame()
     {
         Time.timeScale = 1f;

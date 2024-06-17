@@ -41,4 +41,9 @@ public class LevelMenu : MonoBehaviour
         PlayerPrefs.SetFloat("main_bgm", bgm.time);
         SceneManager.LoadScene("HowTo");
     }
+    public void OpenTutor()
+    {
+        PlayerPrefs.SetFloat("main_bgm", bgm.time);
+        SceneManager.LoadScene("Level00");
+    }
 }
